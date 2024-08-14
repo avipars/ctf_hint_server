@@ -1,9 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, make_response, session
 import datetime
-from flags import stages
+from flags import stages  # import everything from flags.py
 bp = Blueprint('ctf', __name__)
-
-
 
 current_stage = 1
 hint_index = 0
@@ -59,9 +57,10 @@ def flags():
                 # flash a message to the user
                 
                 flash("No new hints :( Try harder!", 'info')
+                # hide the button till they get to next stage
                 
     hints = stages[current_stage]['hints'][:hint_index + 1]
-    return render_template('flags.html', stage=current_stage, hints=hints, hint_index=hint_index, submitted_flags=submitted_flags)
+    return render_template('flags.html', stage=current_stage, hints=hints, hint_index=hint_index, submitted_flags=submitted_flags, num_hints=len(stages[current_stage]['hints']))
 
 
 @bp.route('/', methods=['GET']) # also for index
@@ -75,15 +74,16 @@ def index():
     if "current_stage" not in session:
         session['current_stage'] = 1
         
-    flash("Welcome to the CTF, please read the following messages: ", 'info')
+    flash("Welcome to the CTF, please read the following:", 'info')
     brief = """
-    This site is not required to solve the CTF challenge. It does not store any of your flags, so make sure to keep track of them yourself! 
+    This site is not required to solve the CTF challenge and is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. The flags are not hidden on this site. You need to find them on your own. Good luck!
+
     \n
-    Do not use this site for any illegal activities, please do not attack it in any way as it harms other users who are solving the CTF.
-    The site collects logs for security purposes. 
-    This site is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. The flags are not hidden on this site. You need to find them on your own. Good luck!
+    Do not use this site for any illegal activities, please do not attack it in any way as it harms other users who are solving the CTF. The site collects logs for security purposes. 
     \n
     """
+    # everwhere where is /n, replace with <br> for html
+    brief = brief.split('\n')
     
     return render_template('index.html', summary=brief)
 
@@ -96,12 +96,16 @@ def restart():
     flash("Progress reset. You are back to Stage 1.", 'info')
     # reroute to index
     return redirect(url_for('ctf.index'))
-    # resp = make_response(redirect(url_for('ctf.index')))
-    # resp.set_cookie('stage', '1', httponly=True)
-    # resp.set_cookie('hint_index', '0', httponly=True)
-    # flash("Progress reset. You are back to Stage 1.", 'info')
-    # return resp
 
+# error pages
+@bp.app_errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+# nice page for anything else using message.html and return 500
+@bp.app_errorhandler(500)
+def internal_server_error(error):
+    return render_template('message.html', title="500 Internal Server Error", message="Please try again later"), 500
 
 
 @bp.context_processor

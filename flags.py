@@ -22,3 +22,6 @@ stages = { # Sample dictionary with flags and multiple hints
         ]
     }
 }
+
+# if __name__ == "__main__":
+#     print(stages)

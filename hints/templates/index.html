@@ -24,7 +24,11 @@
     <!-- give a brief summary of the challenge  -->
     <div class="mt-4">
         <h3>Challenge Summary</h3>
-        <p>{{ summary }}</p>
+        {% for para in summary %}
+            <p>{{para}}</p>
+        {% endfor %}
+
+        <!-- <p>{{ summary }}</p> -->
     </div>
     <!-- button: start CTF -->
     <div class="mt-4">

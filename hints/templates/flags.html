@@ -40,10 +40,13 @@
             {% else %}
                 <p>No hints revealed yet.</p>
             {% endif %}
+            
             <form method="POST">
                 <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
             </form>
-            {#<!-- {% if hint_index < len(stages[stage]['hints']) - 1 %} -->
+        
+            {#<!--             {% if hint_index < num_hints-1 %}
+                -->
                 <form method="POST">
                     <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
                 </form>
