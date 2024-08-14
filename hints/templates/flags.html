@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{#<!-- Exports header and navbar from header.html -->#}
+{% block title %}{{ title }}{% endblock %} 
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">CTF Platform</h1>
+        <div class="mt-4">
+            <h3>Stage {{ stage }}</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="flag">Enter Flag:</label>
+                    <input type="text" id="flag" name="flag" class="form-control" placeholder="flag{...}">
+                </div>
+                <button type="submit" name="submit_flag" class="btn btn-primary">Submit Flag</button>
+            </form>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mt-4">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" >{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+        <div class="mt-4">
+            <h4>Hints:</h4>
+            {% if hints %}
+                <ul>
+                    {% for hint in hints %}
+                        <li>{{ hint }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hints revealed yet.</p>
+            {% endif %}
+            <form method="POST">
+                <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
+            </form>
+            {#<!-- {% if hint_index < len(stages[stage]['hints']) - 1 %} -->
+                <form method="POST">
+                    <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
+                </form>
+            <!-- {% endif %} -->#}
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('ctf.restart') }}" class="btn btn-danger">Restart Challenge</a>
+        </div>
+        <div class="sidebar">
+            <h4>Previously Entered Flags</h4>
+            {% if submitted_flags %}
+                <ul>
+                    {% for flag in submitted_flags %}
+                        <li>{{ flag }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No flags entered yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+    {% endblock %}
+

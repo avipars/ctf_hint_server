@@ -1,0 +1,5 @@
+User-agent: * 
+# only allow the index page
+Allow: /index.html
+Disallow: /
+

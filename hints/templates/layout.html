@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<html>
+
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
+    <!-- and OG favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+    <meta name="description" content="CTF Hints and Flag Site for the ColaCo Challenge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    {% endblock %}
+</head>
+
+<body>
+    
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="{{ url_for('ctf.index') }}" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="{{ url_for('ctf.flags') }}" class="nav-link px-2 text-muted">Flags</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          </ul>
+          <p class="text-center text-muted">&copy; {{year}} aviparshan.com</p>
+        </footer>
+      </div>
+
+    <!-- <div id="footer">
+        {% block footer %}
+        <footer class="site-footer">
+             disclaimer 
+            <span class="site-footer-disclaimer">This site is for educational purposes only. Do not use this site for any illegal activities. This site is not a part of the CTF challenge itself</span>
+            <span class="site-footer-owner">&copy; 2024
+                <a href="http://aviparshan.com"
+                    target="_blank">aviparshan.com</a></span>
+
+        </footer>
+        {% endblock %}
+    </div> 
+-->
+</body>
+
+</html>
