@@ -1,33 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, make_response, session
 import datetime
-
+from flags import stages
 bp = Blueprint('ctf', __name__)
 
-# Sample dictionary with flags and multiple hints
-stages = {
-    1: {
-        "flag": "flag{stage1}",
-        "hints": [
-            "This is the least revealing hint for stage 1.",
-            "This is a more revealing hint for stage 1.",
-            "This is the most revealing hint for stage 1."
-        ]
-    },
-    2: {
-        "flag": "flag{stage2}",
-        "hints": [
-            "This is the least revealing hint for stage 2.",
-            "This is a more revealing hint for stage 2.",
-            "This is the most revealing hint for stage 2."
-        ]
-    },
-    3: {
-        "flag": "flag{stage3}",
-        "hints": [
-            "Almost there"
-        ]
-    }
-}
+
 
 current_stage = 1
 hint_index = 0
@@ -88,10 +64,10 @@ def flags():
     return render_template('flags.html', stage=current_stage, hints=hints, hint_index=hint_index, submitted_flags=submitted_flags)
 
 
-@bp.route('/', methods=['GET', 'POST']) # also for index
-@bp.route('/index', methods=['GET', 'POST'])
-@bp.route('/home', methods=['GET', 'POST'])
-@bp.route('/index.html', methods=['GET', 'POST'])
+@bp.route('/', methods=['GET']) # also for index
+@bp.route('/index', methods=['GET'])
+@bp.route('/home', methods=['GET'])
+@bp.route('/index.html', methods=['GET'])
 def index():
      # initialize session variables
     if "submitted_flags" not in session:
@@ -99,16 +75,22 @@ def index():
     if "current_stage" not in session:
         session['current_stage'] = 1
         
-    flash("Welcome to the CTF! Can you find the flags?", 'info')
+    flash("Welcome to the CTF, please read the following messages: ", 'info')
     brief = """
-    Do not use this site for any illegal activities, please do not attack it in any way as it harms other users who are solving the CTF. 
+    This site is not required to solve the CTF challenge. It does not store any of your flags, so make sure to keep track of them yourself! 
+    \n
+    Do not use this site for any illegal activities, please do not attack it in any way as it harms other users who are solving the CTF.
+    The site collects logs for security purposes. 
     This site is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. The flags are not hidden on this site. You need to find them on your own. Good luck!
+    \n
     """
     
-    return render_template('index.html', summary= brief)
+    return render_template('index.html', summary=brief)
 
-@bp.route('/restart')
-@bp.route('/reset')
+@bp.route('/restart', methods=['GET'])
+@bp.route('/restart.html', methods=['GET'])
+@bp.route('/reset', methods=['GET'])
+@bp.route('/reset.html', methods=['GET'])
 def restart():
     session.clear()
     flash("Progress reset. You are back to Stage 1.", 'info')
