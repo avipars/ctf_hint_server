@@ -1,2 +1,2 @@
-web: gunicorn --bind :$PORT run:run
+web: gunicorn --bind :$PORT run:hints
 
