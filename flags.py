@@ -18,5 +18,3 @@ stages = {  # Sample dictionary with flags and multiple hints
     3: {"flag": "flag{stage3}", "hints": ["Almost there"]},
 }
 
-# if __name__ == "__main__":
-#     print(stages)
