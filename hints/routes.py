@@ -1,6 +1,6 @@
 import datetime
 
-from flask import (Blueprint, flash, make_response, redirect, render_template,
+from flask import (Blueprint, flash, redirect, render_template,
                    request, session, url_for)
 
 from flags import stages  # import everything from flags.py
@@ -69,7 +69,6 @@ def flags():
                 # beginning
                 hint_index = 0
                 # flash a message to the user
-
                 flash("No new hints :( Try harder!", "info")
                 # hide the button till they get to next stage
 
@@ -82,7 +81,6 @@ def flags():
         submitted_flags=submitted_flags,
         num_hints=len(stages[current_stage]["hints"]),
     )
-
 
 @bp.route("/", methods=["GET"])  # also for index
 @bp.route("/index", methods=["GET"])
