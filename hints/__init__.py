@@ -6,6 +6,7 @@ from flask import Flask
 
 
 def create_app():
+    print("Creating app")
     app = Flask(
         __name__,
         static_folder="static",
@@ -21,7 +22,8 @@ def create_app():
     app.config["REMEMBER_COOKIE_SECURE"] = True
     # ensure session cookie is secure
     app.config["SESSION_COOKIE_SECURE"] = True
-
+    app.config["SESSION_PERMANENT"] = True
+    app.config['PERMANENT_SESSION_LIFETIME'] = 60 #in seconds
     with app.app_context():
         from . import routes
 

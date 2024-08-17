@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center">CTF Platform</h1>
+    <h1 class="text-center">CTFlask</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -23,7 +23,7 @@
 
     <!-- give a brief summary of the challenge  -->
     <div class="mt-4">
-        <h3>Challenge Summary</h3>
+        <h3>Rules and Information</h3>
         {% for para in summary %}
             <p>{{para}}</p>
         {% endfor %}

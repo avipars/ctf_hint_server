@@ -10,12 +10,16 @@
 
 {% block content %}
 
-<h1 class="error">
+<h1 class="error col-md-12 text-center">
   {{ title }}
 </h1>
 
 {% block body %}
-  <h2>  {{ message }}</h2> 
+<div class="col-md-12 text-center">
+
+  <h2 class="h2 mb-2">  {{ message }}</h2> 
+</div>
+
 {% endblock %}
 
 {% endblock %} 
