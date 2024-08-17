@@ -35,3 +35,9 @@ body {
     width: 250px;
     margin-left: 20px;
 }
+
+input{
+    max-width: 500px;
+    min-width: 100px;
+}
+
