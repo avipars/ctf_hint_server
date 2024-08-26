@@ -1,9 +1,19 @@
 {
     "version": 2,
     "builds": [
-        {"src": "hints/routes.py", "use": "@vercel/python"}
+        {
+            "src": "hints/routes.py",
+            "use": "@vercel/python"
+        },
+        {
+            "src": "static/**",
+            "use": "@vercel/static"
+        }
     ],
     "routes": [
-        {"src": "/(.*)", "dest": "hints/routes.py"}
+        {
+            "src": "/(.*)",
+            "dest": "hints/routes.py"
+        }
     ]
 }
