@@ -5,13 +5,11 @@ from flask import (Blueprint, flash, redirect, render_template,
 from markupsafe import escape
 
 from flags import stages  # import everything from flags.py
-from hints import create_app
 
 bp = Blueprint("ctf", __name__)
 
 current_stage = 1
 hint_index = 0
-app = create_app()
 
 
 @bp.route("/flags", methods=["GET", "POST"])
