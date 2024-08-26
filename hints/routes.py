@@ -177,7 +177,3 @@ def inject_today_date():
     used for the footer to display the current year
     """
     return {"year": datetime.date.today().year}
-
-if __name__ == "__main__":
-    print("running from routes.py")
-    app.run(debug=False, host="0.0.0.0", port=80)
