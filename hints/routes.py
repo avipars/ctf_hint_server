@@ -5,11 +5,13 @@ from flask import (Blueprint, flash, redirect, render_template,
 from markupsafe import escape
 
 from flags import stages  # import everything from flags.py
+from hints import create_app
 
 bp = Blueprint("ctf", __name__)
 
 current_stage = 1
 hint_index = 0
+app = create_app()
 
 
 @bp.route("/flags", methods=["GET", "POST"])
@@ -177,3 +179,7 @@ def inject_today_date():
     used for the footer to display the current year
     """
     return {"year": datetime.date.today().year}
+
+if __name__ == "__main__":
+    print("running from routes.py")
+    app.run(debug=False, host="0.0.0.0", port=80)
