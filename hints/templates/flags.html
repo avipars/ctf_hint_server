@@ -9,14 +9,10 @@
 {% endblock %}
 {% block content %}
     <div class="container mt-5">
-        <h1 class="text-center">CTF Platform</h1>
+        <h1 class="text-center">CTFlask</h1>
         <div class="mt-4">
             <h3>Stage {{ stage }}</h3>
-            <h5>Notes</h5>
-            {% if notes is defined and notes %}
-                <p>{{ notes }}</p>
-            {% endif %}
-
+     
             <form method="POST">
                 <div class="form-group">
                     <label for="flag">Enter Flag:</label>
@@ -24,6 +20,12 @@
                 </div>
                 <button type="submit" name="submit_flag" class="btn btn-primary">Submit Flag</button>
             </form>
+
+            <h5>Notes</h5>
+            {% if notes is defined and notes %}
+                <p>{{ notes }}</p>
+            {% endif %}
+
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages is defined and messages %}

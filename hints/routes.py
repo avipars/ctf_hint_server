@@ -1,5 +1,5 @@
 import datetime
-
+import uuid
 from flask import (Blueprint, flash, redirect, render_template, request,
                    session, url_for)
 from markupsafe import escape
@@ -23,7 +23,9 @@ def flags():
         session["current_stage"] = 1
     if "hint_index" not in session:
         session["hint_index"] = 0
-
+    if "token" not in session:
+        session["token"] = str(uuid.uuid4())  # generate a random token
+        
     current_stage = session["current_stage"]
     submitted_flags = session["submitted_flags"]
     hint_index = session["hint_index"]
@@ -35,8 +37,7 @@ def flags():
         if "submit_flag" in request.form:
             submitted_flag = request.form.get("flag")
             submitted_flag = escape(submitted_flag.strip())
-            # make sure its ascii only and not invalid
-            if not submitted_flag.isascii():
+            if not submitted_flag.isascii():       # make sure its ascii only and not invalid
                 flash("Invalid flag. Please try again.", "danger")
                 return redirect(url_for("ctf.flags"))
 
@@ -56,7 +57,7 @@ def flags():
                         "You have completed all the stages. Congratulations!",
                         "success")
                     return render_template(
-                        "message.html",
+                        "error.html",
                         title="Congratulations!",
                         message="You have completed all the stages of the CTF. ",
                     )
@@ -87,7 +88,7 @@ def flags():
                             flash(
                                 "You have completed all the stages. Congratulations!", "success", )
                             return render_template(
-                                "message.html",
+                                "error.html",
                                 title="Congratulations!",
                                 message="You have completed all the stages of the CTF. ",
                             )
@@ -128,18 +129,20 @@ def flags():
 
 
 @bp.route("/", methods=["GET"])  # also for index
-@bp.route("/index", methods=["GET"])
 @bp.route("/home", methods=["GET"])
+@bp.route("/index", methods=["GET"])
 @bp.route("/index.html", methods=["GET"])
 def index():
-    # initialize session variables
+    # initialize session variables if they don't exist
     if "submitted_flags" not in session:
         session["submitted_flags"] = []
     if "current_stage" not in session:
         session["current_stage"] = 1
     if "hint_index" not in session:
         session["hint_index"] = 0
-
+    if "token" not in session:
+        session["token"] = str(uuid.uuid4())  # generate a random token
+        
     flash("Welcome to the CTF, please read the following:", "info")
     brief = """
     Using this site is not required to solve the CTF challenge and is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. You need to find the flags on your own and not via this site itself. Good luck!
@@ -158,10 +161,11 @@ def index():
 @bp.route("/reset", methods=["GET"])
 @bp.route("/reset.html", methods=["GET"])
 def restart():
-    session.clear()
-    flash("Progress reset. You are back to Stage 1.", "info")
+    [session.pop(key, None)
+     for key in list(session.keys())]  # clear the session
+    flash("Progress reset. You are back to the first stage.", "info")
     # reroute to index
-    return redirect(url_for("ctf.index"))
+    return redirect(url_for("ctf.index"), code=301)
 
 
 # error pages
@@ -170,12 +174,12 @@ def page_not_found(error):
     return render_template("404.html"), 404
 
 
-# nice page for anything else using message.html and return 500
+# nice page for anything else using error.html and return 500
 @bp.app_errorhandler(500)
 def internal_server_error(error):
     return (
         render_template(
-            "message.html",
+            "error.html",
             title="500 Internal Server Error",
             message="Please try again later",
         ),
@@ -184,7 +188,7 @@ def internal_server_error(error):
 
 
 @bp.context_processor
-def inject_today_date():
+def inject_year():
     """
     used for the footer to display the current year
     """

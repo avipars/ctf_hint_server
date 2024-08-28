@@ -1,8 +1,6 @@
 from flask import Flask
 
-# from ctf.error_handlers import register_error_handlers  # Adjust the
 # import based on your project structure
-
 
 def create_app():
     print("Creating app")
@@ -27,19 +25,8 @@ def create_app():
         from . import routes
 
         app.register_blueprint(routes.bp)
-    # register_error_handlers(app)
     # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
     return app
 
-
-# app = Flask(
-#     __name__,
-#     static_folder="static",
-#     static_url_path="/",
-#     template_folder="templates",
-# )
-
-
-# register_error_handlers(app)
 # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
 from hints import routes  # nopep8
