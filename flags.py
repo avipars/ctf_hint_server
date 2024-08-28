@@ -16,8 +16,6 @@ stages = {  # Sample dictionary with flags and multiple hints
             "This is the most revealing hint for stage 2.",
         ],
         "notes": "This is a note for stage 2",
-
     },
     3: {"flag": "flag{stage3}", "hints": ["Almost there"]},
 }
-
