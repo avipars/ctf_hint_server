@@ -43,4 +43,4 @@ def create_app():
 
 # register_error_handlers(app)
 # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
-from hints import routes
+from hints import routes # nopep8
