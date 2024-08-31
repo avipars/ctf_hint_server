@@ -40,7 +40,9 @@ def flags():
             if not submitted_flag.isascii():       # make sure its ascii only and not invalid
                 flash("Invalid flag. Please try again.", "danger")
                 return redirect(url_for("ctf.flags"))
-
+            # everything before the first { can be case insensitive
+            
+            
             if submitted_flag in submitted_flags:
                 flash("You already submitted this flag.", "info")
             elif submitted_flag == stages[current_stage]["flag"]:
@@ -71,7 +73,7 @@ def flags():
                 for stage, stage_data in stages.items():
                     if submitted_flag == stage_data["flag"]:
                         flash(
-                            f"That's the flag for stage {stage}, but in the wrong order", "info", )
+                            f"That's the flag for stage {stage}, but in the wrong order", "info")
                         current_stage = stage
                         hint_index = 0
                         found = True

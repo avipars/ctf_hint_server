@@ -12,11 +12,11 @@
         <h1 class="text-center">CTFlask</h1>
         <div class="mt-4">
             <h3>Stage {{ stage }}</h3>
-     
+            <p>Do not submit anything that comes before the first "{", ie if it is ColaCo{flag}, just submit {flag}</p>
             <form method="POST">
                 <div class="form-group">
                     <label for="flag">Enter Flag:</label>
-                    <input type="text" id="flag" name="flag" class="form-control" placeholder="flag{...}" required>
+                    <input type="text" id="flag" name="flag" class="form-control" placeholder="{...}" required>
                 </div>
                 <button type="submit" name="submit_flag" class="btn btn-primary">Submit Flag</button>
             </form>
