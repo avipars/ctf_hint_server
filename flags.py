@@ -5,8 +5,9 @@ stages = {  # Sample dictionary with flags and multiple hints
             "Blind in one eye, deaf in the other.",
             "Zoom in, zoom out, and you'll find what you seek.",
             "You have the audacity to ask for another hint, so soon?",
-            "Spectro",
-            "Linearity is a myth.",
+            "Spectre", #spectrogram
+            "Linearity is a myth.", #linear in spectrogram
+            "Look in the mirror, that's your competition.",
         ],
         "notes": "It doesn't get easier, you just get better.",
     },
@@ -16,9 +17,10 @@ stages = {  # Sample dictionary with flags and multiple hints
             "Dig a little deeper.",
             "Are you using Any of the right tools?",
             "Try browsing a little more.",
-            "CAA",
+            "Don't find your certificate in the worth, find your worth in the certificate",
+            "Check your CArtification at the door.",
         ],
-        "notes": "A bad workman always blames his tools.",
+        "notes": "Meta-data is your friend.",
     },
     3: {
         "flag": "{Its4m34Br0w53r}",
@@ -38,7 +40,8 @@ stages = {  # Sample dictionary with flags and multiple hints
             "You cannot reach the right destination by walking on the wrong path",
             "A path is a prior interpretation of the best way to traverse a landscape.",
             "One new notification",
-            "Check the trash.",
+            "One man's trash is another man's treasure.", # recycle bin
+            "Reduce, Reuse, Recycle",
         ],
         "notes": "Some flags can unlock more than one door.",
     },
