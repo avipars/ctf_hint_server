@@ -198,4 +198,4 @@ def inject_stuff():
     """
     used for the footer to display the current year, version
     """
-    return {"year": datetime.date.today().year, "version": "1.0.0"}
+    return {"year": datetime.date.today().year, "version": "1.0.0.1"}
