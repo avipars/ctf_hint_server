@@ -1,5 +1,6 @@
 import datetime
 import uuid
+
 from flask import (Blueprint, flash, redirect, render_template, request,
                    session, url_for)
 from markupsafe import escape
@@ -25,7 +26,7 @@ def flags():
         session["hint_index"] = 0
     if "token" not in session:
         session["token"] = str(uuid.uuid4())  # generate a random token
-        
+
     current_stage = session["current_stage"]
     submitted_flags = session["submitted_flags"]
     hint_index = session["hint_index"]
@@ -37,16 +38,15 @@ def flags():
         if "submit_flag" in request.form:
             submitted_flag = request.form.get("flag")
             submitted_flag = escape(submitted_flag.strip())
-            if not submitted_flag.isascii():       # make sure its ascii only and not invalid
+            if not submitted_flag.isascii():  # make sure its ascii only and not invalid
                 flash("Invalid flag. Please try again.", "danger")
                 return redirect(url_for("ctf.flags"))
 
-            
             if submitted_flag in submitted_flags:
                 flash("You already submitted this flag.", "info")
             elif submitted_flag == stages[current_stage]["flag"]:
                 flash(f"Correct flag for Stage {current_stage}!", "success")
-                if submitted_flag not in submitted_flags: # no duplicates
+                if submitted_flag not in submitted_flags:  # no duplicates
                     submitted_flags.append(submitted_flag)
                     session["submitted_flags"] = submitted_flags
 
@@ -54,9 +54,9 @@ def flags():
                     current_stage += 1
                     hint_index = 0
                 elif current_stage == len(stages):
-                    flash(     # if the user has completed all the stages, then flash a message
-                        "You have completed all the stages. Congratulations!",
-                        "success")
+                    flash(  # if the user has completed all the stages, then flash a message
+                        "You have completed all the stages. Congratulations!", "success"
+                    )
                     return render_template(
                         "error.html",
                         title="Congratulations!",
@@ -67,10 +67,13 @@ def flags():
                 found = False
                 # if the flag is for a different stage, then warn them
                 for stage, stage_data in stages.items():
-                    if submitted_flag == stage_data["flag"]: # out of order
+                    if submitted_flag == stage_data["flag"]:  # out of order
                         flash(
-                            f"That's the flag for stage {stage}, but in the wrong order, try to go back and find the right one...", "info")
-                        # current_stage = stage , i decided to not let them proceed to the next stage, but to stay in current one
+                            f"That's the flag for stage {stage}, but in the wrong order, try to go back and find the right one",
+                            "info",
+                        )
+                        # current_stage = stage , i decided to not let them
+                        # proceed to the next stage, but to stay in current one
                         hint_index = 0
                         found = True
 
@@ -78,18 +81,23 @@ def flags():
                         #     submitted_flags.append(submitted_flag)
                         #     session["submitted_flags"] = submitted_flags
 
-                        # check if they got all the flags (even if they are out of order)
+                        # check if they got all the flags (even if they are out
+                        # of order)
                         if sorted(submitted_flags) == sorted(
                             [stage_data["flag"] for stage_data in stages.values()]
                         ):
                             flash(
                                 "You have completed all the stages. Congratulations!", "success", )
-                            return render_template(
-                                "error.html", #not really an error, but a message
-                                title="Congratulations!",
-                                message="You have completed all the stages of the CTF. ",
-                            ),200
-                            # if the user has completed all the stages, then flash a message
+                            return (
+                                render_template(
+                                    "error.html",  # not really an error, but a message
+                                    title="Congratulations!",
+                                    message="You have completed all the stages of the CTF. ",
+                                ),
+                                200,
+                            )
+                            # if the user has completed all the stages, then
+                            # flash a message
                         break
                 # after going through all stages, flag isn't there
                 if not found:
@@ -109,17 +117,19 @@ def flags():
                 flash(
                     "Exhausted all hints for this stage :( Try harder!", "warning")
                 # hide the button till they get to next stage
-    session["hint_index"] = hint_index # update the hint index
-    hints = stages[current_stage]["hints"][:hint_index] # get the hints based on the hint index
-    notes = stages[current_stage].get("notes") # get the notes if they exist
+    session["hint_index"] = hint_index  # update the hint index
+    hints = stages[current_stage]["hints"][
+        :hint_index
+    ]  # get the hints based on the hint index
+    notes = stages[current_stage].get("notes")  # get the notes if they exist
     return render_template(
         "flags.html",
         title=f"CTFlask - Stage {current_stage}",
         stage=current_stage,
-        hints=hints, # hints to display
-        hint_index=hint_index, # current hint index
-        submitted_flags=submitted_flags, 
-        num_hints=len(stages[current_stage]["hints"]), # total number of hints
+        hints=hints,  # hints to display
+        hint_index=hint_index,  # current hint index
+        submitted_flags=submitted_flags,
+        num_hints=len(stages[current_stage]["hints"]),  # total number of hints
         notes=notes,
     )
 
@@ -138,7 +148,7 @@ def index():
         session["hint_index"] = 0
     if "token" not in session:
         session["token"] = str(uuid.uuid4())  # generate a random token
-        
+
     flash("Welcome to the CTF, please read the following:", "info")
     brief = """
     Using this site is not required to solve the CTF challenge and is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. You need to find the flags on your own and not via this site itself. Good luck!
@@ -188,4 +198,4 @@ def inject_stuff():
     """
     used for the footer to display the current year, version
     """
-    return {"year": datetime.date.today().year, "version": "1.0.0.1"}
+    return {"year": datetime.date.today().year, "version": "1.0.0"}
