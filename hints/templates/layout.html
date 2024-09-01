@@ -17,7 +17,7 @@
     <!-- and OG favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
     <meta name="description" content="CTF Hints and Flag Site for the ColaCo Challenge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type= "text/css"  href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <!-- js -->
     <script src="{{ url_for('static', filename='js/code.js') }}"></script>
     {% endblock %}
@@ -31,28 +31,9 @@
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="{{ url_for('ctf.index') }}" class="nav-link px-2 text-muted">Home</a></li>
             <li class="nav-item"><a href="{{ url_for('ctf.flags') }}" class="nav-link px-2 text-muted">Flags</a></li>
-            <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li> -->
           </ul>
-          <p class="text-center text-muted">Version {{version}}</p>
-          <p class="text-center text-muted">&copy; {{year}} aviparshan.com</p>
+          <p class="text-center text-muted">&copy; {{year}} aviparshan.com v{{version}}</p>
         </footer>
       </div>
-
-    <!-- <div id="footer">
-        {% block footer %}
-        <footer class="site-footer">
-             disclaimer 
-            <span class="site-footer-disclaimer">This site is for educational purposes only. Do not use this site for any illegal activities. This site is not a part of the CTF challenge itself</span>
-            <span class="site-footer-owner">&copy; 2024
-                <a href="http://aviparshan.com"
-                    target="_blank">aviparshan.com</a></span>
-
-        </footer>
-        {% endblock %}
-    </div> 
--->
 </body>
-
 </html>
