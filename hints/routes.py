@@ -184,8 +184,8 @@ def internal_server_error(error):
 
 
 @bp.context_processor
-def inject_year():
+def inject_stuff():
     """
-    used for the footer to display the current year
+    used for the footer to display the current year, version
     """
-    return {"year": datetime.date.today().year}
+    return {"year": datetime.date.today().year, "version": "1.0.0"}
