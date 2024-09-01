@@ -30,7 +30,7 @@ stages = {  # Sample dictionary with flags and multiple hints
             "We go way back" "Secrets often lie where robots tell you not to look.",
             "Every locked door has a key. Every problem has a solution.",
         ],
-        "notes": "If the final site is not loading, refresh and wait... (or try to add alt. or a. as the subdomain of the URL)",
+        "notes": "If the final site is not loading, refresh and wait... (or try to add alt. or a. as the subdomain of the URL), the server may be waking from a cold start",
     },
     4: {
         "flag": "{FamousZebraFumbles75}",
