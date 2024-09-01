@@ -53,7 +53,7 @@ stages = {  # Sample dictionary with flags and multiple hints
             "Love without attachment is light.",
             "Poetry is written with tears, fiction with blood, and history with invisible ink.",
             "Slowly, I turned  bit by bit, byte by byte.",
-            "A hidden message, plane to see, If only you could truly see."
+            "A hidden message, plane to see, If only you could truly see.",
         ],
         "notes": "Just a little more to go.",
     },
