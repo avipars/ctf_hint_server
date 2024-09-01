@@ -47,10 +47,13 @@ stages = {  # Sample dictionary with flags and multiple hints
     5: {
         "flag": "{R3v3r5ing_i5_fun}",
         "hints": [
+            "People recognize a logo, but they remember a brand.",
             "Freedom lies in being bold.",
             "Onions have layers. Ogres have layers... You get it?",
             "Love without attachment is light.",
             "Poetry is written with tears, fiction with blood, and history with invisible ink.",
+            "Slowly, I turned  bit by bit, byte by byte.",
+            "A hidden message, plane to see, If only you could truly see."
         ],
         "notes": "Just a little more to go.",
     },
