@@ -69,14 +69,14 @@ def flags():
                 for stage, stage_data in stages.items():
                     if submitted_flag == stage_data["flag"]: # out of order
                         flash(
-                            f"That's the flag for stage {stage}, but in the wrong order, try to go back and find the right one", "info")
+                            f"That's the flag for stage {stage}, but in the wrong order, try to go back and find the right one...", "info")
                         # current_stage = stage , i decided to not let them proceed to the next stage, but to stay in current one
                         hint_index = 0
                         found = True
 
-                        if submitted_flag not in submitted_flags: # no duplicates
-                            submitted_flags.append(submitted_flag)
-                            session["submitted_flags"] = submitted_flags
+                        # if submitted_flag not in submitted_flags: # no duplicates
+                        #     submitted_flags.append(submitted_flag)
+                        #     session["submitted_flags"] = submitted_flags
 
                         # check if they got all the flags (even if they are out of order)
                         if sorted(submitted_flags) == sorted(
@@ -188,4 +188,4 @@ def inject_stuff():
     """
     used for the footer to display the current year, version
     """
-    return {"year": datetime.date.today().year, "version": "1.0.0"}
+    return {"year": datetime.date.today().year, "version": "1.0.0.1"}
