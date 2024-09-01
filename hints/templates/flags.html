@@ -1,81 +1,90 @@
 {% extends "layout.html" %}
 
 {#<!-- Exports header and navbar from header.html -->#}
-{% block title %}{{ title }}{% endblock %} 
+{% block title %}{{ title }}{% endblock %}
 
 {% block head %}
 {{ super() }}
 
 {% endblock %}
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="text-center">CTFlask</h1>
-        <div class="mt-4">
-            <h3>Stage {{ stage }}</h3>
-            <p>Do not submit anything that comes before the first "{", ie if it is ColaCo{flag}, just submit {flag}</p>
-            <form method="POST">
-                <div class="form-group">
-                    <label for="flag">Enter Flag:</label>
-                    <input type="text" id="flag" name="flag" class="form-control" placeholder="{...}" required>
-                </div>
-                <button type="submit" name="submit_flag" class="btn btn-primary">Submit Flag</button>
-            </form>
+<div class="container mt-5">
+    <h1 class="text-center">CTFlask</h1>
+    <div class="mt-4">
+        <h3>Stage {{ stage }}</h3>
+        <p>Do not submit anything that comes before the first "{", ie if it is ColaCo{flag}, just submit {flag}</p>
+        <form method="POST">
+            <div class="form-group">
+                <label for="flag">Enter Flag:</label>
+                <input type="text" id="flag" name="flag" class="form-control" placeholder="{...}" required>
+            </div>
+            <button type="submit" name="submit_flag" class="btn btn-primary">Submit Flag</button>
+        </form>
 
-            <h5>Notes</h5>
-            {% if notes is defined and notes %}
-                <p>{{ notes }}</p>
-            {% endif %}
-
-        </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages is defined and messages %}
-          <div class="mt-4">
-            {% for category, message in messages %}
-              <div class="alert alert-{{ category }}" >{{ message }}</div>
-            {% endfor %}
-          </div>
+        <h5>Notes</h5>
+        {% if notes is defined and notes %}
+        <p>{{ notes }}</p>
         {% endif %}
-      {% endwith %}
-        <div class="mt-4">
-            <h4>Hints</h4>
-            {% if hints is defined and hints %}
-                <ul>
-                    {% for hint in hints %}
-                        <li>{{ hint }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No hints revealed yet.</p>
-            {% endif %}
-            
-            <form method="POST">
-                <button type="input" name="reveal_hint" class="btn btn-secondary" value="d">Reveal Next Hint</button>
-            </form>
-        
-            {#<!-- comment             {% if hint_index < num_hints-1 %}
-                -->
-                <form method="POST">
-                    <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
-                </form>
-            <!-- {% endif %} -->#}
-        </div>
 
-        <div class="mt-4">
-            <h4>Previously Submitted Flags</h4>
-            {% if submitted_flags is defined and submitted_flags %}
-                <ul>
-                    {% for flag in submitted_flags %}
-                        <li>{{ flag }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No flags submitted yet.</p>
-            {% endif %}
-        </div>
-        <div class="mt-4">
-            <a href="{{ url_for('ctf.restart') }}" class="btn btn-danger">Restart Challenge</a>
-        </div>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages is defined and messages %}
+    <div class="mt-4">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="mt-4">
+        <h4>Hints</h4>
+        {% if hints is defined and hints %}
+        <ul>
+            {% for hint in hints %}
+            <li>{{ hint }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No hints revealed yet.</p>
+        {% endif %}
+
+        <form method="POST">
+            <button type="input" name="reveal_hint" class="btn btn-secondary" value="d">Reveal Next Hint</button>
+        </form>
+
+        {#<!-- comment             {% if hint_index < num_hints-1 %}
+                -->
+        <form method="POST">
+            <button type="submit" name="reveal_hint" class="btn btn-secondary">Reveal Next Hint</button>
+        </form>
+        <!-- {% endif %} -->#}
     </div>
 
-    {% endblock %}
+    <div class="mt-4">
+        <h4>Previously Submitted Flags</h4>
+        {% if submitted_flags is defined and submitted_flags %}
+        <ul>
+            {% for flag in submitted_flags %}
+            <li>{{ flag }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No flags submitted yet.</p>
+        {% endif %}
+    </div>
+    {#<!-- <div class="mt-4">
+        <p>(danger) You will lose all progress and saved flags on this site: </p>
+        <a href="{{ url_for('ctf.restart') }}" class="btn btn-danger" id="reset">Reset Progress</a>
+    </div> -->#}
+    <div class="mt-4">
+        <form id="resetForm" action="{{ url_for('ctf.restart') }}" method="POST">
+            <button type="submit" id="resetButton" class="btn btn-danger" role="button">Reset Progress</button>
+        </form>
+    </div>
 
+</div>
+
+<script src="{{ url_for('static', filename='js/flags.js') }}"></script>
+
+
+{% endblock %}

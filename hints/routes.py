@@ -46,7 +46,7 @@ def flags():
                 flash("You already submitted this flag.", "info")
             elif submitted_flag == stages[current_stage]["flag"]:
                 flash(f"Correct flag for Stage {current_stage}!", "success")
-                if submitted_flag not in submitted_flags:
+                if submitted_flag not in submitted_flags: # no duplicates
                     submitted_flags.append(submitted_flag)
                     session["submitted_flags"] = submitted_flags
 
@@ -70,7 +70,7 @@ def flags():
                     if submitted_flag == stage_data["flag"]: # out of order
                         flash(
                             f"That's the flag for stage {stage}, but in the wrong order, try to go back and find the right one", "info")
-                        # current_stage = stage
+                        # current_stage = stage , i decided to not let them proceed to the next stage, but to stay in current one
                         hint_index = 0
                         found = True
 
@@ -152,10 +152,10 @@ def index():
     return render_template("index.html", summary=brief, title="CTFlask - Home")
 
 
-@bp.route("/restart", methods=["GET"])
-@bp.route("/restart.html", methods=["GET"])
-@bp.route("/reset", methods=["GET"])
-@bp.route("/reset.html", methods=["GET"])
+@bp.route("/restart", methods=["POST"])
+@bp.route("/restart.html", methods=["POST"])
+@bp.route("/reset", methods=["POST"])
+@bp.route("/reset.html", methods=["POST"])
 def restart():
     [session.pop(key, None)
      for key in list(session.keys())]  # clear the session
