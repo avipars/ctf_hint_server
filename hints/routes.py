@@ -1,7 +1,7 @@
 import datetime
 
-from flask import (Blueprint, flash, redirect, render_template,
-                   request, session, url_for)
+from flask import (Blueprint, flash, redirect, render_template, request,
+                   session, url_for)
 from markupsafe import escape
 
 from flags import stages  # import everything from flags.py
@@ -30,8 +30,8 @@ def flags():
     submitted_flags = session["submitted_flags"]
     hint_index = session["hint_index"]
 
-
-    # need to verify that the user didn't try to skip stages or trick the system
+    # need to verify that the user didn't try to skip stages or trick the
+    # system
 
     if request.method == "POST":
         if "submit_flag" in request.form:
@@ -41,7 +41,7 @@ def flags():
             if not submitted_flag.isascii():
                 flash("Invalid flag. Please try again.", "danger")
                 return redirect(url_for("ctf.flags"))
-            
+
             if submitted_flag in submitted_flags:
                 flash("You already submitted this flag.", "info")
             elif submitted_flag == stages[current_stage]["flag"]:
@@ -49,7 +49,7 @@ def flags():
                 if submitted_flag not in submitted_flags:
                     submitted_flags.append(submitted_flag)
                     session["submitted_flags"] = submitted_flags
-                    
+
                 if current_stage < len(stages):
                     current_stage += 1
                     hint_index = 0
@@ -57,7 +57,11 @@ def flags():
                     flash(
                         "You have completed all the stages. Congratulations!",
                         "success")
-                    return render_template("message.html", title="Congratulations!", message="You have completed all the stages of the CTF. ")
+                    return render_template(
+                        "message.html",
+                        title="Congratulations!",
+                        message="You have completed all the stages of the CTF. ",
+                    )
                     # if the user has completed all the stages, then flash a
                     # message
                 session["current_stage"] = current_stage
@@ -72,18 +76,23 @@ def flags():
                         current_stage = stage
                         hint_index = 0
                         found = True
-                          
+
                         if submitted_flag not in submitted_flags:
                             submitted_flags.append(submitted_flag)
                             session["submitted_flags"] = submitted_flags
-                            
-                        # check if they got all the flags (even if they are out of order)
-                        if sorted(submitted_flags) == sorted([stage_data["flag"] for stage_data in stages.values()]):
+
+                        # check if they got all the flags (even if they are out
+                        # of order)
+                        if sorted(submitted_flags) == sorted(
+                            [stage_data["flag"] for stage_data in stages.values()]
+                        ):
                             flash(
-                                "You have completed all the stages. Congratulations!",
-                                "success",
+                                "You have completed all the stages. Congratulations!", "success", )
+                            return render_template(
+                                "message.html",
+                                title="Congratulations!",
+                                message="You have completed all the stages of the CTF. ",
                             )
-                            return render_template("message.html", title="Congratulations!", message="You have completed all the stages of the CTF. ")
                             # if the user has completed all the stages, then flash a
                             # message
                         break
@@ -93,8 +102,8 @@ def flags():
 
         elif "reveal_hint" in request.form:
             # hint_num = request.form.get("reveal_hint")
-            if (
-                hint_index < len(stages[current_stage]["hints"])
+            if hint_index < len(
+                stages[current_stage]["hints"]
             ):  # if there are more hints to reveal
                 hint_index += 1
             else:
@@ -102,18 +111,21 @@ def flags():
                 # beginning
                 # hint_index = 0
                 # flash a message to the user
-                flash("Exhausted all hints for this stage :( Try harder!", "warning")
+                flash(
+                    "Exhausted all hints for this stage :( Try harder!", "warning")
                 # hide the button till they get to next stage
     session["hint_index"] = hint_index
-    hints = stages[current_stage]["hints"][: hint_index]
+    hints = stages[current_stage]["hints"][:hint_index]
     notes = stages[current_stage].get("notes")
     return render_template(
-        "flags.html",title=f"CTFlask - Stage {current_stage}",
+        "flags.html",
+        title=f"CTFlask - Stage {current_stage}",
         stage=current_stage,
         hints=hints,
         hint_index=hint_index,
         submitted_flags=submitted_flags,
-        num_hints=len(stages[current_stage]["hints"]),notes=notes
+        num_hints=len(stages[current_stage]["hints"]),
+        notes=notes,
     )
 
 
@@ -129,7 +141,7 @@ def index():
         session["current_stage"] = 1
     if "hint_index" not in session:
         session["hint_index"] = 0
-        
+
     flash("Welcome to the CTF, please read the following:", "info")
     brief = """
     Using this site is not required to solve the CTF challenge and is not a part of the CTF challenge itself, but a tool to help you keep track of your progress. You need to find the flags on your own and not via this site itself. Good luck!
@@ -179,6 +191,7 @@ def inject_today_date():
     used for the footer to display the current year
     """
     return {"year": datetime.date.today().year}
+
 
 if __name__ == "__main__":
     print("running from routes.py")

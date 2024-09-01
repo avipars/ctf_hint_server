@@ -1,5 +1,6 @@
 from flask import Flask
 
+from hints import routes
 
 # from ctf.error_handlers import register_error_handlers  # Adjust the
 # import based on your project structure
@@ -23,7 +24,7 @@ def create_app():
     # ensure session cookie is secure
     app.config["SESSION_COOKIE_SECURE"] = True
     app.config["SESSION_PERMANENT"] = True
-    app.config['PERMANENT_SESSION_LIFETIME'] = 60 #in seconds
+    app.config["PERMANENT_SESSION_LIFETIME"] = 60  # in seconds
     with app.app_context():
         from . import routes
 
@@ -43,4 +44,3 @@ def create_app():
 
 # register_error_handlers(app)
 # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
-from hints import routes
