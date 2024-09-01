@@ -5,8 +5,8 @@ stages = {  # Sample dictionary with flags and multiple hints
             "Blind in one eye, deaf in the other.",
             "Zoom in, zoom out, and you'll find what you seek.",
             "You have the audacity to ask for another hint, so soon?",
-            "Spectre", #spectrogram
-            "Linearity is a myth.", #linear in spectrogram
+            "Spectre",  # spectrogram
+            "Linearity is a myth.",  # linear in spectrogram
             "Look in the mirror, that's your competition.",
         ],
         "notes": "It doesn't get easier, you just get better.",
@@ -27,9 +27,8 @@ stages = {  # Sample dictionary with flags and multiple hints
         "hints": [
             "This might be a site for sore eyes.",
             "If the past could be changed, it would not exist.",
-            "We go way back"
-            "Secrets often lie where robots tell you not to look.",
-            "Every locked door has a key. Every problem has a solution."
+            "We go way back" "Secrets often lie where robots tell you not to look.",
+            "Every locked door has a key. Every problem has a solution.",
         ],
         "notes": "If the final site is not loading, refresh and wait... (or try to add alt. to the URL)",
     },
@@ -40,7 +39,7 @@ stages = {  # Sample dictionary with flags and multiple hints
             "You cannot reach the right destination by walking on the wrong path",
             "A path is a prior interpretation of the best way to traverse a landscape.",
             "One new notification",
-            "One man's trash is another man's treasure.", # recycle bin
+            "One man's trash is another man's treasure.",  # recycle bin
             "Reduce, Reuse, Recycle",
         ],
         "notes": "Some flags can unlock more than one door.",
@@ -64,5 +63,5 @@ stages = {  # Sample dictionary with flags and multiple hints
             "Check all the windows.",
         ],
         "notes": "Nearly there!",
-    }
+    },
 }

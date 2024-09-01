@@ -2,6 +2,7 @@ from flask import Flask
 
 # import based on your project structure
 
+
 def create_app():
     print("Creating app")
     app = Flask(
@@ -27,6 +28,7 @@ def create_app():
         app.register_blueprint(routes.bp)
     # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
     return app
+
 
 # app.config['referrer_policy'] = 'strict-origin-when-cross-origin'
 from hints import routes  # nopep8
